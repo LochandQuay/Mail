@@ -49,7 +49,7 @@ class Message {
   }
 }
 
-const messageDraft = new Message();
+let messageDraft = new Message();
 
 
 module.exports = MessageStore;

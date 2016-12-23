@@ -5,6 +5,15 @@ module.exports = {
     let div = document.createElement("div");
     div.className = "new-message";
     div.innerHTML = this.renderForm();
+    div.addEventListener("change", (event) => {
+      let element = event.target;
+      MessageStore.updateDraftField(element.name, element.value);
+    });
+    div.addEventListener("submit", (event) => {
+      event.preventDefault();
+      MessageStore.sendDraft();
+      window.location.hash = "#inbox";
+    });
     return div;
   },
 
