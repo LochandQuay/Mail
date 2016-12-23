@@ -46,8 +46,8 @@
 
 	let Router = __webpack_require__(1);
 	let Inbox = __webpack_require__(2);
+	let Sent = __webpack_require__(4);
 	// let Compose = require('./compose.js');
-	// let Sent = require('./sent.js');
 
 	document.addEventListener("DOMContentLoaded", () => {
 	  let content = document.querySelector(".content");
@@ -66,9 +66,9 @@
 	});
 
 	let routes = {
+	  inbox: Inbox,
+	  sent: Sent
 	  // compose: Compose,
-	  inbox: Inbox//,
-	  // sent: Sent
 	};
 
 
@@ -169,6 +169,34 @@
 	};
 
 	module.exports = MessageStore;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const MessageStore = __webpack_require__(3);
+
+	module.exports = {
+	  render() {
+	    let ul = document.createElement("ul");
+	    ul.className = "messages";
+	    let messages = MessageStore.getSentMessages();
+	    messages.forEach (message => {
+	      ul.appendChild(this.renderMessage(message));
+	    });
+	    return ul;
+	  },
+
+	  renderMessage(message) {
+	    let li = document.createElement("li");
+	    li.className = "message";
+	    li.innerHTML = `<span class="to">${message.to}</span>
+	                    <span class="subject">${message.subject}</span>
+	                    <span class="body">${message.body}</span>`;
+	    return li;
+	  }
+	};
 
 
 /***/ }
