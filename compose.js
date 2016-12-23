@@ -2,21 +2,34 @@ const MessageStore = require("./message_store.js");
 
 module.exports = {
   render() {
-    let ul = document.createElement("ul");
-    ul.className = "messages";
-    let messages = MessageStore.getInboxMessages();
-    messages.forEach (message => {
-      ul.appendChild(this.renderMessage(message));
-    });
-    return ul;
+    let div = document.createElement("div");
+    div.className = "new-message";
+    div.innerHTML = this.renderForm();
+    return div;
   },
 
-  renderMessage(message) {
-    let li = document.createElement("li");
-    li.className = "message";
-    li.innerHTML = `<span class="from">${message.from}</span>
-                    <span class="subject">${message.subject}</span>
-                    <span class="body">${message.body}</span>`;
-    return li;
+  renderForm(message) {
+    let draft = MessageStore.getMessageDraft();
+    let html = draft.innerHTML =
+      `<p class="new-message-header">New Message</p>
+      <form class="compose-form">
+        <input
+          placeholder="Recipient"
+          name="to"
+          type="text"
+          value="${draft.to}">
+        <input
+          placeholder="Subject"
+          name="subject"
+          type="text"
+          value="${draft.subject}">
+        <textarea name="body" rows=20>${draft.body}</textarea>
+        <button
+          type="submit"
+          class="btn btn-primary submit-message">
+          Send
+        </button>
+      </form>`;
+    return html;
   }
 };

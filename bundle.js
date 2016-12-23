@@ -47,7 +47,7 @@
 	let Router = __webpack_require__(1);
 	let Inbox = __webpack_require__(2);
 	let Sent = __webpack_require__(4);
-	// let Compose = require('./compose.js');
+	let Compose = __webpack_require__(5);
 
 	document.addEventListener("DOMContentLoaded", () => {
 	  let content = document.querySelector(".content");
@@ -67,8 +67,8 @@
 
 	let routes = {
 	  inbox: Inbox,
-	  sent: Sent
-	  // compose: Compose,
+	  sent: Sent,
+	  compose: Compose
 	};
 
 
@@ -155,12 +155,6 @@
 	    {from: "eevee@fpm.com",
 	     subject: "Hi, Mom!",
 	     body: "Sending love from Florida! <3"}
-	  ],
-	  draft: [
-	    {from: "hope@hope.com",
-	     to: "gatsby@caterpie.com",
-	     subject: "Going outside",
-	     body: "...You do it too often. It's dangerous. Stop."}
 	  ]
 	};
 
@@ -171,6 +165,10 @@
 
 	  getSentMessages() {
 	    return messages.sent.slice();
+	  },
+
+	  getMessageDraft() {
+	    return messageDraft;
 	  },
 
 	  updateDraftField(field, value) {
@@ -222,6 +220,47 @@
 	                    <span class="subject">${message.subject}</span>
 	                    <span class="body">${message.body}</span>`;
 	    return li;
+	  }
+	};
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const MessageStore = __webpack_require__(3);
+
+	module.exports = {
+	  render() {
+	    let div = document.createElement("div");
+	    div.className = "new-message";
+	    div.innerHTML = this.renderForm();
+	    return div;
+	  },
+
+	  renderForm(message) {
+	    let draft = MessageStore.getMessageDraft();
+	    let html = draft.innerHTML =
+	      `<p class="new-message-header">New Message</p>
+	      <form class="compose-form">
+	        <input
+	          placeholder="Recipient"
+	          name="to"
+	          type="text"
+	          value="${draft.to}">
+	        <input
+	          placeholder="Subject"
+	          name="subject"
+	          type="text"
+	          value="${draft.subject}">
+	        <textarea name="body" rows=20>${draft.body}</textarea>
+	        <button
+	          type="submit"
+	          class="btn btn-primary submit-message">
+	          Send
+	        </button>
+	      </form>`;
+	    return html;
 	  }
 	};
 

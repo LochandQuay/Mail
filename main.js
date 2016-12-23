@@ -1,7 +1,7 @@
 let Router = require('./router.js');
 let Inbox = require('./inbox.js');
 let Sent = require('./sent.js');
-// let Compose = require('./compose.js');
+let Compose = require('./compose.js');
 
 document.addEventListener("DOMContentLoaded", () => {
   let content = document.querySelector(".content");
@@ -21,6 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let routes = {
   inbox: Inbox,
-  sent: Sent
-  // compose: Compose,
+  sent: Sent,
+  compose: Compose
 };

@@ -14,12 +14,6 @@ let messages = {
     {from: "eevee@fpm.com",
      subject: "Hi, Mom!",
      body: "Sending love from Florida! <3"}
-  ],
-  draft: [
-    {from: "hope@hope.com",
-     to: "gatsby@caterpie.com",
-     subject: "Going outside",
-     body: "...You do it too often. It's dangerous. Stop."}
   ]
 };
 
@@ -30,6 +24,10 @@ const MessageStore = {
 
   getSentMessages() {
     return messages.sent.slice();
+  },
+
+  getMessageDraft() {
+    return messageDraft;
   },
 
   updateDraftField(field, value) {
